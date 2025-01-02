@@ -10,7 +10,11 @@ module Opro
       include Opro::Controllers::Concerns::RateLimits
 
       included do
-        include ActionController::RequestForgeryProtection
+        include_class_methods do 
+          def protect_from_forgery
+            super 
+          end
+        end        
         around_filter      :oauth_auth!
         skip_before_filter :verify_authenticity_token, :if => :valid_oauth?
       end
