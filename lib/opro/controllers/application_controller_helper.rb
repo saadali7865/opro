@@ -9,12 +9,7 @@ module Opro
       include Opro::Controllers::Concerns::ErrorMessages
       include Opro::Controllers::Concerns::RateLimits
 
-      included do
-        include_class_methods do 
-          def protect_from_forgery
-            super 
-          end
-        end        
+      included do    
         around_filter      :oauth_auth!
         skip_before_filter :verify_authenticity_token, :if => :valid_oauth?
       end
