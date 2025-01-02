@@ -10,8 +10,6 @@ module Opro
       include Opro::Controllers::Concerns::RateLimits
 
       included do
-        protect_from_forgery with: :exception, prepend: true
-        
         around_filter      :oauth_auth!
         skip_before_filter :verify_authenticity_token, :if => :valid_oauth?
       end
